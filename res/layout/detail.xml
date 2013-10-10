@@ -51,6 +51,13 @@
             android:text="@string/address_content"
             android:layout_alignParentRight="true" android:layout_marginRight="0dp"
             android:layout_below="@+id/detail_tvHi"/>
+    <Spinner
+            android:id="@+id/detail_spAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/address"
+            android:prompt="@string/address"
+            android:visibility="invisible"/>
 
     <TextView
             android:id="@+id/detail_tvBirthday"

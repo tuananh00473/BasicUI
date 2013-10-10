@@ -1,7 +1,9 @@
 package com.example.BasicUI;
 
-import android.app.*;
-import android.content.DialogInterface;
+import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -28,7 +30,6 @@ public class DetailActivity extends Activity
 
     private static final int DATE_DIALOG_ID = 0;
     private static final int TIME_DIALOG_ID = 1;
-    private static final int ADDRESS_DIALOG_ID = 2;
 
     Calendar c = Calendar.getInstance();
     int mYear = c.get(Calendar.YEAR);
@@ -136,6 +137,16 @@ public class DetailActivity extends Activity
                 showFriendList();
             }
         });
+
+        if (savedInstanceState != null)
+        {
+            tvAddressContent.setText(savedInstanceState.getString("address"));
+            tvBirthdayContent.setText(savedInstanceState.getString("birthday"));
+            tvOnlineContent.setText(savedInstanceState.getString("online"));
+            tvGenderContent.setText(savedInstanceState.getString("gender"));
+            cbShowFriendList.setChecked(savedInstanceState.getBoolean("check"));
+            showFriendList();
+        }
     }
 
     private void initListViewFriendList()
@@ -170,7 +181,21 @@ public class DetailActivity extends Activity
 
     private void setAddress()
     {
-        showDialog(ADDRESS_DIALOG_ID);
+        Spinner spAddress = (Spinner) findViewById(R.id.detail_spAddress);
+        spAddress.performClick();
+        spAddress.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l)
+            {
+                tvAddressContent.setText(adapterView.getSelectedItem().toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView)
+            {
+            }
+        });
     }
 
     private void doLogout()
@@ -231,20 +256,6 @@ public class DetailActivity extends Activity
         }
     }
 
-    private Dialog addressDialog()
-    {
-        AlertDialog.Builder builder = new AlertDialog.Builder(DetailActivity.this);
-        final CharSequence[] items = {"Ha Noi", "Ha Nam", "Ha Tay", "Quang Ninh", "Bac Ninh"};
-        builder.setItems(items, new DialogInterface.OnClickListener()
-        {
-            public void onClick(DialogInterface dialog, int index)
-            {
-                tvAddressContent.setText(items[index]);
-            }
-        });
-        return builder.create();
-    }
-
     @Override
     protected Dialog onCreateDialog(int id)
     {
@@ -254,9 +265,18 @@ public class DetailActivity extends Activity
                 return new DatePickerDialog(this, mDateSetListener, mYear, mMonth, mDay);
             case TIME_DIALOG_ID:
                 return new TimePickerDialog(this, mTimeSetListener, mHour, mMinute, false);
-            case ADDRESS_DIALOG_ID:
-                return addressDialog();
         }
         return null;
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState)
+    {
+        super.onSaveInstanceState(outState);
+        outState.putString("address", tvAddressContent.getText().toString());
+        outState.putString("birthday", tvBirthdayContent.getText().toString());
+        outState.putString("online", tvOnlineContent.getText().toString());
+        outState.putString("gender", tvGenderContent.getText().toString());
+        outState.putBoolean("check", cbShowFriendList.isChecked());
     }
 }
