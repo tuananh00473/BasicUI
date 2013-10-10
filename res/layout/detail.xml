@@ -18,13 +18,14 @@
             android:id="@+id/detail_tvUsername"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true" android:layout_marginLeft="60dp"
+            android:layout_alignParentLeft="true" android:layout_marginLeft="30dp"
             android:layout_alignTop="@id/detail_tvHi"/>
     <TextView
             android:id="@+id/detail_tvLogout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/Red"
+            android:textStyle="italic"
             android:text="@string/logout"
             android:layout_alignParentRight="true" android:layout_marginRight="10dp"
             android:layout_alignTop="@id/detail_tvHi"/>
@@ -33,7 +34,6 @@
             android:id="@+id/detail_ivAvatar"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:textAlignment="center"
             android:src="@drawable/avatar"
             android:layout_alignLeft="@+id/detail_tvHi"
             android:layout_below="@id/detail_tvHi"/>
@@ -97,96 +97,126 @@
             android:layout_alignParentRight="true" android:layout_marginRight="0dp"
             android:layout_below="@id/detail_tvOnlineContent"/>
 
+    <RadioGroup
+            android:id="@+id/detail_rbGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/detail_tvAddress"
+            android:layout_below="@+id/detail_tvGender" android:visibility="gone">
+        <RadioButton
+                android:id="@+id/detail_rbMale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/male"
+                android:layout_gravity="left|center_vertical"/>
+        <RadioButton
+                android:id="@+id/detail_rbFemale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/female"
+                android:layout_gravity="left|center_vertical"/>
+    </RadioGroup>
 
     <CheckBox
             android:id="@+id/detail_cbShowFriendList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/show_friend_list"
+            android:checked="true"
             android:layout_alignLeft="@+id/detail_tvHi"
-            android:layout_below="@id/detail_ivAvatar"/>
+            android:layout_below="@id/detail_rbGroup" android:layout_marginTop="30dp"/>
 
-    <TextView
-            android:id="@+id/detail_name1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/name1"
-            android:layout_alignLeft="@+id/detail_tvHi"
-            android:layout_below="@id/detail_cbShowFriendList"/>
-    <TextView
-            android:id="@+id/detail_phone1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/phone1"
-            android:layout_alignLeft="@+id/detail_tvHi"
-            android:layout_below="@id/detail_name1"/>
-    <View
-            android:id="@+id/line1"
-            android:layout_width="fill_parent"
-            android:layout_height="0.5dp"
-            android:layout_below="@id/detail_phone1"
-            android:background="@color/White"/>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/detail_rlFriendList"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:layout_below="@id/detail_cbShowFriendList">
 
-    <TextView
-            android:id="@+id/detail_name2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/name1"
-            android:layout_alignLeft="@+id/detail_tvHi"
-            android:layout_below="@id/line1"/>
-    <TextView
-            android:id="@+id/detail_phone2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/phone1"
-            android:layout_alignLeft="@+id/detail_tvHi"
-            android:layout_below="@id/detail_name2"/>
-    <View
-            android:id="@+id/line2"
-            android:layout_width="fill_parent"
-            android:layout_height="0.5dp"
-            android:layout_below="@id/detail_phone2"
-            android:background="@color/White"/>
+        <TextView
+                android:id="@+id/detail_name1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/name1"
+                android:layout_alignLeft="@+id/detail_tvHi"
+                android:layout_below="@id/detail_cbShowFriendList"/>
+        <TextView
+                android:id="@+id/detail_phone1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/phone1"
+                android:layout_alignLeft="@+id/detail_tvHi"
+                android:layout_below="@id/detail_name1"/>
+        <View
+                android:id="@+id/line1"
+                android:layout_width="fill_parent"
+                android:layout_height="0.5dp"
+                android:layout_below="@id/detail_phone1"
+                android:background="@color/White"/>
 
-    <TextView
-            android:id="@+id/detail_name3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/name1"
-            android:layout_alignLeft="@+id/detail_tvHi"
-            android:layout_below="@id/line2"/>
-    <TextView
-            android:id="@+id/detail_phone3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/phone1"
-            android:layout_alignLeft="@+id/detail_tvHi"
-            android:layout_below="@id/detail_name3"/>
-    <View
-            android:id="@+id/line3"
-            android:layout_width="fill_parent"
-            android:layout_height="0.5dp"
-            android:layout_below="@id/detail_phone3"
-            android:background="@color/White"/>
+        <TextView
+                android:id="@+id/detail_name2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/name1"
+                android:layout_alignLeft="@+id/detail_tvHi"
+                android:layout_below="@id/line1"/>
+        <TextView
+                android:id="@+id/detail_phone2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/phone1"
+                android:layout_alignLeft="@+id/detail_tvHi"
+                android:layout_below="@id/detail_name2"/>
+        <View
+                android:id="@+id/line2"
+                android:layout_width="fill_parent"
+                android:layout_height="0.5dp"
+                android:layout_below="@id/detail_phone2"
+                android:background="@color/White"/>
 
-    <TextView
-            android:id="@+id/detail_name4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/name1"
-            android:layout_alignLeft="@+id/detail_tvHi"
-            android:layout_below="@id/line3"/>
-    <TextView
-            android:id="@+id/detail_phone4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/phone1"
-            android:layout_alignLeft="@+id/detail_tvHi"
-            android:layout_below="@id/detail_name4"/>
-    <View
-            android:id="@+id/line4"
-            android:layout_width="fill_parent"
-            android:layout_height="0.5dp"
-            android:layout_below="@id/detail_phone4"
-            android:background="@color/White"/>
+        <TextView
+                android:id="@+id/detail_name3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/name1"
+                android:layout_alignLeft="@+id/detail_tvHi"
+                android:layout_below="@id/line2"/>
+        <TextView
+                android:id="@+id/detail_phone3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/phone1"
+                android:layout_alignLeft="@+id/detail_tvHi"
+                android:layout_below="@id/detail_name3"/>
+        <View
+                android:id="@+id/line3"
+                android:layout_width="fill_parent"
+                android:layout_height="0.5dp"
+                android:layout_below="@id/detail_phone3"
+                android:background="@color/White"/>
+
+        <TextView
+                android:id="@+id/detail_name4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/name1"
+                android:layout_alignLeft="@+id/detail_tvHi"
+                android:layout_below="@id/line3"/>
+        <TextView
+                android:id="@+id/detail_phone4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/phone1"
+                android:layout_alignLeft="@+id/detail_tvHi"
+                android:layout_below="@id/detail_name4"/>
+        <View
+                android:id="@+id/line4"
+                android:layout_width="fill_parent"
+                android:layout_height="0.5dp"
+                android:layout_below="@id/detail_phone4"
+                android:background="@color/White"/>
+    </RelativeLayout>
 </RelativeLayout>
