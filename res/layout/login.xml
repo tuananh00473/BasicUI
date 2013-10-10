@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:paddingLeft="50dp"
+              android:paddingRight="50dp"
+              android:paddingTop="100dp"
+        >
+    <TextView
+            android:id="@+id/login_tvUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/username"
+            />
+    <EditText
+            android:id="@+id/login_etUsername"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/username_hint"
+            />
+    <TextView
+            android:id="@+id/login_tvPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/password"
+            />
+    <EditText
+            android:id="@+id/login_etPassword"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/password_hint"
+            android:password="true"
+            />
+    <Button
+            android:id="@+id/login_btLogin"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="@string/login"
+            android:layout_gravity="center"
+            />
+
+</LinearLayout>
+

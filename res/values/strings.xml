@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BasicUI</string>
+    <string name="username">Username:</string>
+    <string name="password">Password:</string>
+    <string name="login">Login</string>
+    <string name="username_hint">anhnt</string>
+    <string name="password_hint">*****</string>
+    <string name="detail_layout">Detail Activity</string>
+    <string name="login_layout">Login here</string>
+    <string name="hi">Hi,</string>
+    <string name="address">Address :</string>
+    <string name="address_content">Ha Noi</string>
+    <string name="birthday">Birthday :</string>
+    <string name="birthday_content">1/1/1999</string>
+    <string name="online">Online :</string>
+    <string name="online_content">12:06 AM</string>
+    <string name="gender">Gender :</string>
+    <string name="gender_content">Male</string>
+    <string name="logout">
+        <u>Logout</u>
+    </string>
+    <string name="show_friend_list">Show friend list</string>
+    <string name="name">Name:</string>
+    <string name="phone">Phone:</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+</resources>
