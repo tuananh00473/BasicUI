@@ -6,9 +6,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
+import com.example.BasicUI.model.Contact;
 
-import java.util.Date;
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * User: anhnt
@@ -21,24 +22,20 @@ public class DetailActivity extends Activity
     private TextView tvBirthdayContent;
     private TextView tvOnlineContent;
     private TextView tvGenderContent;
-    private RadioButton rbMale;
-    private RadioButton rbFemale;
 
     private CheckBox cbShowFriendList;
-    private TextView tvName1;
-    private TextView tvPhone1;
-    private TextView tvName2;
-    private TextView tvPhone2;
-    private TextView tvName3;
-    private TextView tvPhone3;
-    private TextView tvName4;
-    private TextView tvPhone4;
+    private ListView lvFriendList;
 
     private static final int DATE_DIALOG_ID = 0;
     private static final int TIME_DIALOG_ID = 1;
     private static final int ADDRESS_DIALOG_ID = 2;
 
-    private List addressList;
+    Calendar c = Calendar.getInstance();
+    int mYear = c.get(Calendar.YEAR);
+    int mMonth = c.get(Calendar.MONTH);
+    int mDay = c.get(Calendar.DAY_OF_MONTH);
+    int mHour = c.get(Calendar.HOUR_OF_DAY);
+    int mMinute = c.get(Calendar.MINUTE);
 
     public void onCreate(Bundle savedInstanceState)
     {
@@ -73,6 +70,7 @@ public class DetailActivity extends Activity
         });
 
         tvBirthdayContent = (TextView) findViewById(R.id.detail_tvBirthdayContent);
+        showDate(mYear, mMonth, mDay);
         TextView tvBirthday = (TextView) findViewById(R.id.detail_tvBirthday);
         tvBirthday.setOnClickListener(new View.OnClickListener()
         {
@@ -84,6 +82,7 @@ public class DetailActivity extends Activity
         });
 
         tvOnlineContent = (TextView) findViewById(R.id.detail_tvOnlineContent);
+        showTime(mHour, mMinute);
         TextView tvOnline = (TextView) findViewById(R.id.detail_tvOnline);
         tvOnline.setOnClickListener(new View.OnClickListener()
         {
@@ -95,7 +94,7 @@ public class DetailActivity extends Activity
         });
 
         tvGenderContent = (TextView) findViewById(R.id.detail_tvGenderContent);
-        rbMale = (RadioButton) findViewById(R.id.detail_rbMale);
+        RadioButton rbMale = (RadioButton) findViewById(R.id.detail_rbMale);
         rbMale.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -103,11 +102,9 @@ public class DetailActivity extends Activity
             {
                 tvGenderContent.setText(R.string.male);
                 findViewById(R.id.detail_rbGroup).setVisibility(View.GONE);
-                //rbMale.setVisibility(-1);
-                //rbFemale.setVisibility(-1);
             }
         });
-        rbFemale = (RadioButton) findViewById(R.id.detail_rbFemale);
+        RadioButton rbFemale = (RadioButton) findViewById(R.id.detail_rbFemale);
         rbFemale.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -115,8 +112,6 @@ public class DetailActivity extends Activity
             {
                 tvGenderContent.setText(R.string.female);
                 findViewById(R.id.detail_rbGroup).setVisibility(View.GONE);
-                //rbMale.setVisibility(-1);
-                //rbFemale.setVisibility(-1);
             }
         });
         TextView tvGender = (TextView) findViewById(R.id.detail_tvGender);
@@ -129,14 +124,8 @@ public class DetailActivity extends Activity
             }
         });
 
-        tvName1 = (TextView) findViewById(R.id.detail_name1);
-        tvPhone1 = (TextView) findViewById(R.id.detail_phone1);
-        tvName2 = (TextView) findViewById(R.id.detail_name2);
-        tvPhone2 = (TextView) findViewById(R.id.detail_phone2);
-        tvName3 = (TextView) findViewById(R.id.detail_name3);
-        tvPhone3 = (TextView) findViewById(R.id.detail_phone3);
-        tvName4 = (TextView) findViewById(R.id.detail_name4);
-        tvPhone4 = (TextView) findViewById(R.id.detail_phone4);
+        lvFriendList = (ListView) findViewById(R.id.detail_lvFriendList);
+        initListViewFriendList();
 
         cbShowFriendList = (CheckBox) findViewById(R.id.detail_cbShowFriendList);
         cbShowFriendList.setOnClickListener(new View.OnClickListener()
@@ -149,11 +138,24 @@ public class DetailActivity extends Activity
         });
     }
 
+    private void initListViewFriendList()
+    {
+        final ArrayList<Contact> list = new ArrayList<Contact>();
+        Contact[] contacts = new Contact[4];
+        for (int i = 0; i < 4; i++)
+        {
+            contacts[i] = new Contact();
+            contacts[i].setName("Perter");
+            contacts[i].setPhone("09123456789");
+            list.add(contacts[i]);
+        }
+
+        lvFriendList.setAdapter(new ListArrayAdapter(this, list));
+    }
+
     private void showGenderChooser()
     {
         findViewById(R.id.detail_rbGroup).setVisibility(View.VISIBLE);
-        //rbMale.setVisibility(0);
-        //rbFemale.setVisibility(0);
     }
 
     private void setOnline()
@@ -182,25 +184,11 @@ public class DetailActivity extends Activity
     {
         if (cbShowFriendList.isChecked())
         {
-            tvName1.setVisibility(0);
-            tvPhone1.setVisibility(0);
-            tvName2.setVisibility(0);
-            tvPhone2.setVisibility(0);
-            tvName3.setVisibility(0);
-            tvPhone3.setVisibility(0);
-            tvName4.setVisibility(0);
-            tvPhone4.setVisibility(0);
+            lvFriendList.setVisibility(View.VISIBLE);
         }
         else
         {
-            tvName1.setVisibility(-1);
-            tvPhone1.setVisibility(-1);
-            tvName2.setVisibility(-1);
-            tvPhone2.setVisibility(-1);
-            tvName3.setVisibility(-1);
-            tvPhone3.setVisibility(-1);
-            tvName4.setVisibility(-1);
-            tvPhone4.setVisibility(-1);
+            lvFriendList.setVisibility(View.GONE);
         }
     }
 
@@ -208,29 +196,40 @@ public class DetailActivity extends Activity
     {
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth)
         {
-            tvBirthdayContent.setText(dayOfMonth + "/" + ++monthOfYear + "/" + year);
+            showDate(year, monthOfYear, dayOfMonth);
         }
     };
+
+    private void showDate(int year, int monthOfYear, int dayOfMonth)
+    {
+        tvBirthdayContent.setText(dayOfMonth + "/" + ++monthOfYear + "/" + year);
+    }
+
     private TimePickerDialog.OnTimeSetListener mTimeSetListener = new TimePickerDialog.OnTimeSetListener()
     {
         @Override
-        public void onTimeSet(TimePicker timePicker, int hour, int second)
+        public void onTimeSet(TimePicker timePicker, int hour, int minute)
         {
-            if (hour > 12)
-            {
-                hour -= 12;
-                tvOnlineContent.setText(hour + " : " + second + " PM");
-            }
-            else if (hour == 12)
-            {
-                tvOnlineContent.setText(hour + " : " + second + " PM");
-            }
-            else
-            {
-                tvOnlineContent.setText(hour + " : " + second + " AM");
-            }
+            showTime(hour, minute);
         }
     };
+
+    private void showTime(int hour, int minute)
+    {
+        if (hour > 12)
+        {
+            hour -= 12;
+            tvOnlineContent.setText(hour + " : " + minute + " PM");
+        }
+        else if (hour == 12)
+        {
+            tvOnlineContent.setText(hour + " : " + minute + " PM");
+        }
+        else
+        {
+            tvOnlineContent.setText(hour + " : " + minute + " AM");
+        }
+    }
 
     private Dialog addressDialog()
     {
@@ -249,13 +248,12 @@ public class DetailActivity extends Activity
     @Override
     protected Dialog onCreateDialog(int id)
     {
-        Date date = new Date();
         switch (id)
         {
             case DATE_DIALOG_ID:
-                return new DatePickerDialog(this, mDateSetListener, date.getYear(), date.getMonth(), date.getDay());
+                return new DatePickerDialog(this, mDateSetListener, mYear, mMonth, mDay);
             case TIME_DIALOG_ID:
-                return new TimePickerDialog(this, mTimeSetListener, date.getHours(), date.getSeconds(), false);
+                return new TimePickerDialog(this, mTimeSetListener, mHour, mMinute, false);
             case ADDRESS_DIALOG_ID:
                 return addressDialog();
         }
