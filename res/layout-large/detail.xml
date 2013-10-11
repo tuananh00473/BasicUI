@@ -3,44 +3,49 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:paddingTop="10dp">
+                android:paddingLeft="40dp"
+                android:paddingRight="40dp"
+                android:paddingTop="40dp">
 
     <TextView
             android:id="@+id/detail_tvHiUsername"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="40dp"
             android:layout_alignParentLeft="true" android:layout_marginLeft="0dp"
             android:layout_alignParentTop="true" android:layout_marginTop="0dp"/>
     <TextView
             android:id="@+id/detail_tvLogout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="40dp"
             android:textColor="@color/Red"
             android:textStyle="italic"
             android:text="@string/logout"
-            android:layout_alignParentRight="true" android:layout_marginRight="10dp"
+            android:layout_alignParentRight="true" android:layout_marginRight="20dp"
             android:layout_alignTop="@id/detail_tvHiUsername"/>
 
     <ImageView
             android:id="@+id/detail_ivAvatar"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
             android:src="@drawable/avatar"
+            android:paddingTop="10dp"
             android:layout_alignLeft="@id/detail_tvHiUsername"
             android:layout_below="@id/detail_tvHiUsername"/>
     <TextView
             android:id="@+id/detail_tvAddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/detail_ivAvatar" android:paddingLeft="10dp"
+            android:textSize="40dp"
+            android:layout_toRightOf="@id/detail_ivAvatar" android:paddingLeft="20dp"
             android:layout_alignTop="@id/detail_ivAvatar" android:paddingTop="10dp"/>
 
     <Spinner
             android:id="@+id/detail_spAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="40dp"
             android:entries="@array/address"
             android:visibility="invisible"/>
 
@@ -48,21 +53,24 @@
             android:id="@+id/detail_tvBirthday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/detail_ivAvatar" android:paddingLeft="10dp"
+            android:textSize="40dp"
+            android:layout_toRightOf="@id/detail_ivAvatar" android:paddingLeft="20dp"
             android:layout_below="@id/detail_tvAddress"/>
 
     <TextView
             android:id="@+id/detail_tvOnline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/detail_ivAvatar" android:paddingLeft="10dp"
+            android:textSize="40dp"
+            android:layout_toRightOf="@id/detail_ivAvatar" android:paddingLeft="20dp"
             android:layout_below="@id/detail_tvBirthday"/>
 
     <TextView
             android:id="@+id/detail_tvGender"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/detail_ivAvatar" android:paddingLeft="10dp"
+            android:textSize="40dp"
+            android:layout_toRightOf="@id/detail_ivAvatar" android:paddingLeft="20dp"
             android:layout_below="@id/detail_tvOnline"/>
 
     <RadioGroup
@@ -76,12 +84,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
+                android:textSize="40dp"
                 android:text="@string/male"
                 android:layout_gravity="left|center_vertical"/>
         <RadioButton
                 android:id="@+id/detail_rbFemale"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="40dp"
                 android:text="@string/female"
                 android:layout_gravity="left|center_vertical"/>
     </RadioGroup>
@@ -90,10 +100,11 @@
             android:id="@+id/detail_cbShowFriendList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="40dp"
             android:text="@string/show_friend_list"
             android:checked="true"
             android:layout_alignLeft="@id/detail_tvHiUsername"
-            android:layout_below="@id/detail_rbGroup" android:layout_marginTop="30dp"/>
+            android:layout_below="@id/detail_rbGroup" android:layout_marginTop="60dp"/>
     <ListView
             android:id="@+id/detail_lvFriendList"
             android:layout_width="wrap_content"

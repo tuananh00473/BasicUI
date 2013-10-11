@@ -20,10 +20,10 @@ import java.util.Calendar;
  */
 public class DetailActivity extends Activity
 {
-    private TextView tvAddressContent;
-    private TextView tvBirthdayContent;
-    private TextView tvOnlineContent;
-    private TextView tvGenderContent;
+    private TextView tvAddress;
+    private TextView tvBirthday;
+    private TextView tvOnline;
+    private TextView tvGender;
 
     private CheckBox cbShowFriendList;
     private ListView lvFriendList;
@@ -42,10 +42,10 @@ public class DetailActivity extends Activity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail);
-        TextView tvNameUser = (TextView) findViewById(R.id.detail_tvUsername);
+        TextView tvNameUser = (TextView) findViewById(R.id.detail_tvHiUsername);
 
         Bundle bundle = getIntent().getExtras();
-        tvNameUser.setText(bundle.getString("username"));
+        tvNameUser.setText("Hi, " + bundle.getString("username"));
 
         TextView tvLogout = (TextView) findViewById(R.id.detail_tvLogout);
         findViewById(R.id.detail_rbGroup).setVisibility(View.VISIBLE);
@@ -59,8 +59,8 @@ public class DetailActivity extends Activity
             }
         });
 
-        tvAddressContent = (TextView) findViewById(R.id.detail_tvAddressContent);
-        TextView tvAddress = (TextView) findViewById(R.id.detail_tvAddress);
+        tvAddress = (TextView) findViewById(R.id.detail_tvAddress);
+        showAddress("Ha Noi");
         tvAddress.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -70,9 +70,8 @@ public class DetailActivity extends Activity
             }
         });
 
-        tvBirthdayContent = (TextView) findViewById(R.id.detail_tvBirthdayContent);
+        tvBirthday = (TextView) findViewById(R.id.detail_tvBirthday);
         showDate(mYear, mMonth, mDay);
-        TextView tvBirthday = (TextView) findViewById(R.id.detail_tvBirthday);
         tvBirthday.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -82,9 +81,8 @@ public class DetailActivity extends Activity
             }
         });
 
-        tvOnlineContent = (TextView) findViewById(R.id.detail_tvOnlineContent);
+        tvOnline = (TextView) findViewById(R.id.detail_tvOnline);
         showTime(mHour, mMinute);
-        TextView tvOnline = (TextView) findViewById(R.id.detail_tvOnline);
         tvOnline.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -94,14 +92,13 @@ public class DetailActivity extends Activity
             }
         });
 
-        tvGenderContent = (TextView) findViewById(R.id.detail_tvGenderContent);
         RadioButton rbMale = (RadioButton) findViewById(R.id.detail_rbMale);
         rbMale.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
-                tvGenderContent.setText(R.string.male);
+                showGender("Male");
                 findViewById(R.id.detail_rbGroup).setVisibility(View.GONE);
             }
         });
@@ -111,11 +108,12 @@ public class DetailActivity extends Activity
             @Override
             public void onClick(View view)
             {
-                tvGenderContent.setText(R.string.female);
+                showGender("Female");
                 findViewById(R.id.detail_rbGroup).setVisibility(View.GONE);
             }
         });
-        TextView tvGender = (TextView) findViewById(R.id.detail_tvGender);
+        tvGender = (TextView) findViewById(R.id.detail_tvGender);
+        showGender("Male");
         tvGender.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -140,13 +138,18 @@ public class DetailActivity extends Activity
 
         if (savedInstanceState != null)
         {
-            tvAddressContent.setText(savedInstanceState.getString("address"));
-            tvBirthdayContent.setText(savedInstanceState.getString("birthday"));
-            tvOnlineContent.setText(savedInstanceState.getString("online"));
-            tvGenderContent.setText(savedInstanceState.getString("gender"));
+            tvAddress.setText(savedInstanceState.getString("address"));
+            tvBirthday.setText(savedInstanceState.getString("birthday"));
+            tvOnline.setText(savedInstanceState.getString("online"));
+            tvGender.setText(savedInstanceState.getString("gender"));
             cbShowFriendList.setChecked(savedInstanceState.getBoolean("check"));
             showFriendList();
         }
+    }
+
+    private void showGender(String gender)
+    {
+        tvGender.setText("Gender: " + gender);
     }
 
     private void initListViewFriendList()
@@ -188,7 +191,7 @@ public class DetailActivity extends Activity
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l)
             {
-                tvAddressContent.setText(adapterView.getSelectedItem().toString());
+                showAddress(adapterView.getSelectedItem().toString());
             }
 
             @Override
@@ -196,6 +199,11 @@ public class DetailActivity extends Activity
             {
             }
         });
+    }
+
+    private void showAddress(String address)
+    {
+        tvAddress.setText("Address: " + address);
     }
 
     private void doLogout()
@@ -227,7 +235,7 @@ public class DetailActivity extends Activity
 
     private void showDate(int year, int monthOfYear, int dayOfMonth)
     {
-        tvBirthdayContent.setText(dayOfMonth + "/" + ++monthOfYear + "/" + year);
+        tvBirthday.setText("Birthday: " + dayOfMonth + "/" + ++monthOfYear + "/" + year);
     }
 
     private TimePickerDialog.OnTimeSetListener mTimeSetListener = new TimePickerDialog.OnTimeSetListener()
@@ -244,15 +252,15 @@ public class DetailActivity extends Activity
         if (hour > 12)
         {
             hour -= 12;
-            tvOnlineContent.setText(hour + " : " + minute + " PM");
+            tvOnline.setText("Online: " + hour + ":" + minute + " PM");
         }
         else if (hour == 12)
         {
-            tvOnlineContent.setText(hour + " : " + minute + " PM");
+            tvOnline.setText("Online: " + hour + ":" + minute + " PM");
         }
         else
         {
-            tvOnlineContent.setText(hour + " : " + minute + " AM");
+            tvOnline.setText("Online: " + hour + ":" + minute + " AM");
         }
     }
 
@@ -273,10 +281,10 @@ public class DetailActivity extends Activity
     protected void onSaveInstanceState(Bundle outState)
     {
         super.onSaveInstanceState(outState);
-        outState.putString("address", tvAddressContent.getText().toString());
-        outState.putString("birthday", tvBirthdayContent.getText().toString());
-        outState.putString("online", tvOnlineContent.getText().toString());
-        outState.putString("gender", tvGenderContent.getText().toString());
+        outState.putString("address", tvAddress.getText().toString());
+        outState.putString("birthday", tvBirthday.getText().toString());
+        outState.putString("online", tvOnline.getText().toString());
+        outState.putString("gender", tvGender.getText().toString());
         outState.putBoolean("check", cbShowFriendList.isChecked());
     }
 }
